@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       newTask: "",
-      error: false,
+      error: null,
       todoList: [
         {
           text: "Lavare la macchina",
@@ -34,7 +34,7 @@ export default {
         this.todoList.unshift({ text: this.newTask, done: false });
         this.newTask = "";
       } else {
-        this.error = "This should be at long 5 caracter";
+        this.error = "This should be at least long 5 character";
       }
     },
   },
