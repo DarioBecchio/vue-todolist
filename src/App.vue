@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       newTask: "",
+      error: false,
       todoList: [
         {
           text: "Lavare la macchina",
@@ -29,8 +30,12 @@ export default {
     },
 
     addTask() {
-      this.todoList.unshift({ text: this.newTask, done: false });
-      this.newTask = "";
+      if (this.newTask.length > 5) {
+        this.todoList.unshift({ text: this.newTask, done: false });
+        this.newTask = "";
+      } else {
+        this.error = "This should be at long 5 caracter";
+      }
     },
   },
 
@@ -43,8 +48,9 @@ export default {
 <template>
   <div class="container">
     <h1>Todolist</h1>
-    <input type="text" v-model="newTask" />
+    <input type="text" v-model="newTask" @keyup.enter="addTask" />
     <button @click="addTask">Aggiungi task</button>
+    <p>{{ error }}</p>
     <ul v-if="todoList.length > 0">
       <li v-for="(element, index) in todoList">
         <span :style="{ textDecoration: element.done ? 'line-through' : '' }">
